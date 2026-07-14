@@ -1,55 +1,437 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>Russian War Cost Tracker</title>
+  <title>Russian War Cost Tracker</title>
 
-<style>
+  <meta
+    name="description"
+    content="Live VSL-based estimate of the economic cost associated with Russian military fatalities in the Russia-Ukraine War."
+  />
 
-body{
-    margin:0;
-    background:#111;
-    color:white;
-    font-family:Arial,Helvetica,sans-serif;
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top, #232323 0%, #111111 45%, #070707 100%);
+      color: #ffffff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
 
-    height:100vh;
-}
+    .page {
+      width: min(1150px, 92%);
+      margin: 0 auto;
+    }
 
-.container{
-    text-align:center;
-}
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 26px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
 
-h1{
-    font-size:56px;
-    margin-bottom:20px;
-}
+    .brand {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
 
-p{
-    font-size:22px;
-    color:#bbbbbb;
-}
+    .nav {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
 
-</style>
+    .live {
+      color: #a7d7a7;
+      font-size: 14px;
+    }
 
+    button {
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      color: #ffffff;
+      padding: 10px 16px;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    main {
+      padding: 85px 0 65px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      margin-bottom: 18px;
+      color: #ff6961;
+      font-size: 15px;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 930px;
+      margin: 0 auto 22px;
+      font-size: clamp(36px, 5vw, 72px);
+      line-height: 1.06;
+      letter-spacing: -0.04em;
+    }
+
+    .subtitle {
+      max-width: 780px;
+      margin: 0 auto 38px;
+      color: #c6c6c6;
+      font-size: clamp(17px, 2vw, 22px);
+      line-height: 1.55;
+    }
+
+    .counter {
+      margin: 32px 0 14px;
+      font-size: clamp(42px, 7vw, 92px);
+      font-weight: 850;
+      letter-spacing: -0.055em;
+      overflow-wrap: anywhere;
+    }
+
+    .rate {
+      margin-bottom: 12px;
+      color: #ff6961;
+      font-size: clamp(20px, 3vw, 32px);
+      font-weight: 700;
+    }
+
+    .timestamp {
+      color: #a9a9a9;
+      font-size: 14px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 68px;
+      text-align: left;
+    }
+
+    .card {
+      padding: 25px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.045);
+      backdrop-filter: blur(8px);
+    }
+
+    .card-label {
+      margin-bottom: 12px;
+      color: #a9a9a9;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .card-value {
+      font-size: 27px;
+      font-weight: 800;
+    }
+
+    .note {
+      max-width: 900px;
+      margin: 34px auto 0;
+      color: #8f8f8f;
+      font-size: 14px;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    footer {
+      padding: 30px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      color: #888888;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.72);
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .modal.active {
+      display: block;
+    }
+
+    .modal-content {
+      max-width: 850px;
+      margin: 70px auto;
+      padding: 34px;
+      border-radius: 18px;
+      background: #151515;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 18px 70px rgba(0, 0, 0, 0.45);
+      text-align: left;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      margin-bottom: 22px;
+    }
+
+    .modal h2 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    .modal p {
+      color: #d0d0d0;
+      font-size: 16px;
+      line-height: 1.75;
+    }
+
+    .formula {
+      margin: 22px 0;
+      padding: 18px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      font-size: 18px;
+      line-height: 1.7;
+      overflow-x: auto;
+    }
+
+    .method-list {
+      color: #d0d0d0;
+      line-height: 1.8;
+      padding-left: 20px;
+    }
+
+    .close-btn {
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 760px) {
+      header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+      }
+
+      main {
+        padding-top: 58px;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-content {
+        margin: 35px auto;
+        padding: 25px;
+      }
+
+      .modal-header {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <div class="page">
+    <header>
+      <div class="brand">Russian War Cost Tracker</div>
 
-<div class="container">
+      <div class="nav">
+        <div class="live">● Live estimate</div>
+        <button onclick="openMethodology()">Methodology</button>
+      </div>
+    </header>
 
-<h1>Russian War Cost Tracker</h1>
+    <main>
+      <div class="eyebrow">Russia Value of Statistical Life</div>
 
-<p>Website under development</p>
+      <h1>
+        Estimated VSL-Based Economic Cost of Russian Military Fatalities
+      </h1>
 
-<p>Coming Soon</p>
+      <p class="subtitle">
+        A live estimate based on the transferred Russian Value of a Statistical Life
+        and a 500,000 fatality baseline as of June 1, 2026.
+      </p>
 
-</div>
+      <div id="cost-counter" class="counter" aria-live="polite">
+        Loading...
+      </div>
 
+      <div class="rate">
+        +$9,508.87 per second
+      </div>
+
+      <div id="timestamp" class="timestamp">
+        Synced to current date and time
+      </div>
+
+      <section class="cards">
+        <div class="card">
+          <div class="card-label">Baseline date</div>
+          <div class="card-value">June 1, 2026</div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Baseline VSL estimate</div>
+          <div class="card-value">$1.28 trillion</div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Fatality baseline</div>
+          <div class="card-value">500,000</div>
+        </div>
+      </section>
+
+      <p class="note">
+        This counter is an analytical estimate, not a real-time count of confirmed fatalities
+        and not a measure of direct Russian government spending. It extrapolates the VSL-based
+        estimate forward from the June 1, 2026 baseline using the average historical rate
+        implied by the model.
+      </p>
+    </main>
+
+    <footer>
+      Independent research project based on transparent methodology and open-source data.
+    </footer>
+  </div>
+
+  <div id="methodology-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Methodology</h2>
+        <button class="close-btn" onclick="closeMethodology()">Close</button>
+      </div>
+
+      <p>
+        This project estimates the economic value of Russian military fatalities using the
+        Value of a Statistical Life (VSL) framework. VSL is commonly used in public policy
+        and cost-benefit analysis to measure the value of reducing mortality risk. It does
+        not represent the market price of an individual life.
+      </p>
+
+      <p>
+        The Russian VSL estimate is derived using a benefits-transfer approach associated
+        with the VSL literature, including Viscusi's framework. The model transfers the
+        U.S. Department of Transportation VSL to Russia by adjusting for income differences
+        using GNI per capita.
+      </p>
+
+      <div class="formula">
+        VSL<sub>Russia,t</sub> =
+        VSL<sub>US,t</sub> ×
+        (GNI<sub>Russia,t</sub> / GNI<sub>US,t</sub>)<sup>ε</sup>
+      </div>
+
+      <ul class="method-list">
+        <li><strong>VSL<sub>US,t</sub></strong>: U.S. Department of Transportation VSL estimate.</li>
+        <li><strong>GNI per capita</strong>: World Bank Atlas-method GNI per capita for Russia and the United States.</li>
+        <li><strong>ε</strong>: income elasticity assumption used to transfer VSL across countries.</li>
+        <li><strong>Fatality baseline</strong>: 500,000 Russian military fatalities as of June 1, 2026.</li>
+        <li><strong>Baseline result</strong>: approximately $1.28 trillion as of June 1, 2026.</li>
+      </ul>
+
+      <p>
+        After June 1, 2026, the live counter increases at the average historical rate implied
+        by the period from February 24, 2022 to June 1, 2026. This produces a continuously
+        updated estimate, but it should be interpreted as an extrapolated analytical measure,
+        not as a confirmed real-time casualty count or a direct fiscal expenditure.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    /*
+      Baseline:
+      $1.28 trillion as of June 1, 2026 at 00:00 UTC.
+
+      Historical period:
+      February 24, 2022 to June 1, 2026 = 1,558 days.
+
+      Growth rate:
+      $1.28 trillion / total seconds in that period
+      = approximately $9,508.87 per second.
+    */
+
+    const baselineCost = 1_280_000_000_000;
+    const baselineDate = new Date("2026-06-01T00:00:00Z");
+    const costPerSecond = 9508.867018494746;
+
+    const counterElement = document.getElementById("cost-counter");
+    const timestampElement = document.getElementById("timestamp");
+
+    const moneyFormatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 0
+    });
+
+    const timeFormatter = new Intl.DateTimeFormat("en-US", {
+      dateStyle: "medium",
+      timeStyle: "medium"
+    });
+
+    function updateCounter() {
+      const now = new Date();
+
+      const elapsedMilliseconds = Math.max(
+        0,
+        now.getTime() - baselineDate.getTime()
+      );
+
+      const elapsedSeconds = elapsedMilliseconds / 1000;
+
+      const currentEstimate =
+        baselineCost + elapsedSeconds * costPerSecond;
+
+      counterElement.textContent = moneyFormatter.format(currentEstimate);
+      timestampElement.textContent =
+        "Synced to current time: " + timeFormatter.format(now);
+    }
+
+    function openMethodology() {
+      document.getElementById("methodology-modal").classList.add("active");
+    }
+
+    function closeMethodology() {
+      document.getElementById("methodology-modal").classList.remove("active");
+    }
+
+    window.addEventListener("keydown", function(event) {
+      if (event.key === "Escape") {
+        closeMethodology();
+      }
+    });
+
+    updateCounter();
+    setInterval(updateCounter, 1000);
+  </script>
 </body>
 </html>
