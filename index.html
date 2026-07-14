@@ -242,6 +242,32 @@
       margin-bottom: 7px;
     }
 
+    .modal a {
+      color: #ff9a8f;
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .modal a:hover {
+      text-decoration: underline;
+    }
+
+    .references {
+      margin-top: 30px;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .references ol {
+      color: #d0d0d0;
+      line-height: 1.75;
+      padding-left: 22px;
+    }
+
+    .references li {
+      margin-bottom: 10px;
+    }
+
     .close-btn {
       flex-shrink: 0;
     }
@@ -370,10 +396,17 @@
 
       <p>
         Because Russia does not have a transparent and reliable domestic wartime
-        VSL estimate, this project uses an international benefit-transfer method
-        associated with the VSL literature, including Viscusi's framework. The
-        U.S. benchmark VSL is transferred to Russia by adjusting for income
-        differences between the United States and Russia.
+        VSL estimate, this project uses a benefit-transfer method from the VSL
+        literature, especially the approach associated with
+        <a
+          href="https://www.cambridge.org/core/journals/journal-of-benefit-cost-analysis/article/income-elasticity-of-global-values-of-a-statistical-life-stated-preference-evidence/9147A00C5675C87D680435152F77AA75"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Masterman and Viscusi
+        </a>.
+        The U.S. benchmark VSL is transferred to Russia by adjusting for income
+        differences between the United States and Russia using GNI per capita.
       </p>
 
       <div class="formula">
@@ -387,17 +420,35 @@
       <ul class="method-list">
         <li>
           <strong>U.S. DOT VSL benchmark, 2025:</strong>
-          $14.2 million.
+          <a
+            href="https://www.transportation.gov/office-policy/transportation-policy/revised-departmental-guidance-on-valuation-of-a-statistical-life-in-economic-analysis"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            $14.2 million
+          </a>.
         </li>
 
         <li>
           <strong>Russia GNI per capita, 2025:</strong>
-          $15,960.
+          <a
+            href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=RU"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            $15,960
+          </a>.
         </li>
 
         <li>
           <strong>U.S. GNI per capita, 2025:</strong>
-          $88,810.
+          <a
+            href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=US"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            $88,810
+          </a>.
         </li>
 
         <li>
@@ -417,9 +468,15 @@
 
         <li>
           <strong>Fatality baseline:</strong>
-          500,000 Russian military fatalities as of June 1, 2026, based on
-          recent British intelligence statements, including GCHQ and FCDO
-          reporting.
+          <a
+            href="https://www.gov.uk/government/speeches/gchq-confirms-heavy-russian-losses-as-moscow-avoids-negotiations-and-civilian-casualties-grow-uk-statement-to-the-osce"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            500,000 Russian military fatalities as of June 1, 2026
+          </a>,
+          based on recent British intelligence statements, including GCHQ and
+          FCDO reporting.
         </li>
 
         <li>
@@ -461,6 +518,71 @@
         as a confirmed real-time casualty count, a direct fiscal cost, or actual
         Russian government expenditure.
       </p>
+
+      <div class="references">
+        <h3>References</h3>
+
+        <ol>
+          <li>
+            Foreign, Commonwealth &amp; Development Office. (2026).
+            <a
+              href="https://www.gov.uk/government/speeches/gchq-confirms-heavy-russian-losses-as-moscow-avoids-negotiations-and-civilian-casualties-grow-uk-statement-to-the-osce"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GCHQ confirms heavy Russian losses as Moscow avoids negotiations
+              and civilian casualties grow: UK Statement to the OSCE.
+            </a>
+          </li>
+
+          <li>
+            U.S. Department of Transportation. (2026).
+            <a
+              href="https://www.transportation.gov/office-policy/transportation-policy/revised-departmental-guidance-on-valuation-of-a-statistical-life-in-economic-analysis"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Departmental Guidance on Valuation of a Statistical Life in
+              Economic Analysis.
+            </a>
+          </li>
+
+          <li>
+            World Bank. (n.d.).
+            <a
+              href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=RU"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GNI per capita, Atlas method (current US$): Russian Federation.
+            </a>
+          </li>
+
+          <li>
+            World Bank. (n.d.).
+            <a
+              href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=US"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              GNI per capita, Atlas method (current US$): United States.
+            </a>
+          </li>
+
+          <li>
+            Masterman, C. J., &amp; Viscusi, W. K. (2018).
+            <a
+              href="https://www.cambridge.org/core/journals/journal-of-benefit-cost-analysis/article/income-elasticity-of-global-values-of-a-statistical-life-stated-preference-evidence/9147A00C5675C87D680435152F77AA75"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              The Income Elasticity of Global Values of a Statistical Life:
+              Stated Preference Evidence.
+            </a>
+            <em>Journal of Benefit-Cost Analysis, 9</em>(3), 407–434.
+          </li>
+        </ol>
+      </div>
     </div>
   </div>
 
