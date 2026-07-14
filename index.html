@@ -324,48 +324,76 @@
   </div>
 
   <div id="methodology-modal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2>Methodology</h2>
-        <button class="close-btn" onclick="closeMethodology()">Close</button>
-      </div>
-
-      <p>
-        This project estimates the economic value of Russian military fatalities using the
-        Value of a Statistical Life (VSL) framework. VSL is commonly used in public policy
-        and cost-benefit analysis to measure the value of reducing mortality risk. It does
-        not represent the market price of an individual life.
-      </p>
-
-      <p>
-        The Russian VSL estimate is derived using a benefits-transfer approach associated
-        with the VSL literature, including Viscusi's framework. The model transfers the
-        U.S. Department of Transportation VSL to Russia by adjusting for income differences
-        using GNI per capita.
-      </p>
-
-      <div class="formula">
-        VSL<sub>Russia,t</sub> =
-        VSL<sub>US,t</sub> ×
-        (GNI<sub>Russia,t</sub> / GNI<sub>US,t</sub>)<sup>ε</sup>
-      </div>
-
-      <ul class="method-list">
-        <li><strong>VSL<sub>US,t</sub></strong>: U.S. Department of Transportation VSL estimate.</li>
-        <li><strong>GNI per capita</strong>: World Bank Atlas-method GNI per capita for Russia and the United States.</li>
-        <li><strong>ε</strong>: income elasticity assumption used to transfer VSL across countries.</li>
-        <li><strong>Fatality baseline</strong>: 500,000 Russian military fatalities as of June 1, 2026.</li>
-        <li><strong>Baseline result</strong>: approximately $1.28 trillion as of June 1, 2026.</li>
-      </ul>
-
-      <p>
-        After June 1, 2026, the live counter increases at the average historical rate implied
-        by the period from February 24, 2022 to June 1, 2026. This produces a continuously
-        updated estimate, but it should be interpreted as an extrapolated analytical measure,
-        not as a confirmed real-time casualty count or a direct fiscal expenditure.
-      </p>
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>Methodology</h2>
+      <button class="close-btn" onclick="closeMethodology()">Close</button>
     </div>
+
+    <p>
+      This counter estimates the economic value of Russian military fatalities
+      using the Value of a Statistical Life (VSL) framework. VSL is commonly used
+      in public policy and cost-benefit analysis to estimate the monetary value
+      of reducing mortality risk. It should not be interpreted as the market
+      price of an individual life.
+    </p>
+
+    <p>
+      The Russian VSL is estimated using a benefits-transfer approach based on
+      the VSL literature, including Viscusi's framework. The model transfers the
+      U.S. Department of Transportation VSL to Russia by adjusting for income
+      differences using GNI per capita.
+    </p>
+
+    <div class="formula">
+      VSL<sub>Russia,2025</sub> =
+      VSL<sub>US,2025</sub> ×
+      (GNI<sub>Russia,2025</sub> / GNI<sub>US,2025</sub>)<sup>1.0</sup>
+    </div>
+
+    <ul class="method-list">
+      <li>
+        <strong>U.S. DOT VSL 2025:</strong>
+        $14.2 million.
+      </li>
+
+      <li>
+        <strong>Income elasticity:</strong>
+        ε = 1.0.
+      </li>
+
+      <li>
+        <strong>Income adjustment:</strong>
+        World Bank GNI per capita, Atlas method, current U.S. dollars.
+      </li>
+
+      <li>
+        <strong>Estimated Russian VSL:</strong>
+        approximately $2.56 million per fatality.
+      </li>
+
+      <li>
+        <strong>Fatality baseline:</strong>
+        500,000 Russian military fatalities as of June 1, 2026, based on the
+        British intelligence / GCHQ estimate.
+      </li>
+
+      <li>
+        <strong>Baseline aggregate estimate:</strong>
+        approximately $1.28 trillion as of June 1, 2026.
+      </li>
+    </ul>
+
+    <p>
+      After June 1, 2026, the live counter increases at the average historical
+      rate implied by the period from February 24, 2022 to June 1, 2026. This
+      creates a continuously updated estimate synchronized to the current date
+      and time. The counter is an extrapolated analytical measure, not a
+      real-time casualty count and not a direct measure of Russian government
+      spending.
+    </p>
   </div>
+</div>
 
   <script>
     /*
