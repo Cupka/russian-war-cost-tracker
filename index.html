@@ -241,6 +241,97 @@
       font-weight: 900;
     }
 
+    .comparison-section {
+      margin: 38px auto 0;
+      padding: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.045);
+      text-align: center;
+    }
+
+    .comparison-title {
+      margin: 0 0 12px;
+      font-size: clamp(26px, 3vw, 42px);
+      letter-spacing: -0.035em;
+    }
+
+    .comparison-subtitle {
+      max-width: 780px;
+      margin: 0 auto 28px;
+      color: #c8c8c8;
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .budget-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .budget-card {
+      padding: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.055);
+      text-align: center;
+    }
+
+    .flag {
+      font-size: 44px;
+      margin-bottom: 10px;
+    }
+
+    .country-name {
+      font-size: 20px;
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .budget-label {
+      color: #a9a9a9;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .budget-value {
+      font-size: 26px;
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+
+    .ratio-label {
+      color: #c8c8c8;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    .ratio-number {
+      color: #ff6961;
+      font-size: 38px;
+      font-weight: 950;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+    }
+
+    .ratio-text {
+      color: #d0d0d0;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .budget-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
     .note {
       max-width: 980px;
       margin: 28px auto 0;
@@ -387,6 +478,10 @@
 
       .panel {
         padding: 28px;
+      }
+
+      .budget-grid {
+        grid-template-columns: 1fr;
       }
     }
 
@@ -615,6 +710,121 @@
 
         <div id="total-rate" class="total-rate">
           Loading...
+        </div>
+      </section>
+
+      <section class="comparison-section">
+        <h2 class="comparison-title">
+          Compared with Annual Government Expenditure
+        </h2>
+
+        <p class="comparison-subtitle">
+          IMF World Economic Outlook government expenditure benchmarks provide
+          scale for understanding the size of the live VSL + VSI human-capital estimate.
+        </p>
+
+        <div class="budget-grid">
+          <div class="budget-card">
+            <div class="flag">🇺🇸</div>
+            <div class="country-name">United States</div>
+
+            <div class="budget-label">IMF WEO 2026 benchmark</div>
+            <div class="budget-value">$12.07T</div>
+
+            <div class="ratio-label">VSL + VSI equals</div>
+            <div id="usa-ratio" class="ratio-number">Loading...</div>
+            <div class="ratio-text">
+              of annual U.S. general government expenditure
+            </div>
+
+            <div class="budget-links">
+              <a
+                class="card-link"
+                href="https://www.imf.org/external/datamapper/GGX_NGDP@WEO/USA"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Expenditure →
+              </a>
+
+              <a
+                class="card-link"
+                href="https://www.imf.org/external/datamapper/NGDPD@WEO/USA"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GDP →
+              </a>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="flag">🇨🇳</div>
+            <div class="country-name">China</div>
+
+            <div class="budget-label">IMF WEO 2026 benchmark</div>
+            <div class="budget-value">$6.98T</div>
+
+            <div class="ratio-label">VSL + VSI equals</div>
+            <div id="china-ratio" class="ratio-number">Loading...</div>
+            <div class="ratio-text">
+              of annual Chinese general government expenditure
+            </div>
+
+            <div class="budget-links">
+              <a
+                class="card-link"
+                href="https://www.imf.org/external/datamapper/GGX_NGDP@WEO/CHN"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Expenditure →
+              </a>
+
+              <a
+                class="card-link"
+                href="https://www.imf.org/external/datamapper/NGDPD@WEO/CHN"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GDP →
+              </a>
+            </div>
+          </div>
+
+          <div class="budget-card">
+            <div class="flag">🇷🇺</div>
+            <div class="country-name">Russia</div>
+
+            <div class="budget-label">IMF WEO 2026 benchmark</div>
+            <div class="budget-value">$929B</div>
+
+            <div class="ratio-label">VSL + VSI equals</div>
+            <div id="russia-ratio" class="ratio-number">Loading...</div>
+            <div class="ratio-text">
+              of annual Russian general government expenditure
+            </div>
+
+            <div class="budget-links">
+              <a
+                class="card-link"
+                href="https://www.imf.org/external/datamapper/GGX_NGDP@WEO/RUS"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Expenditure →
+              </a>
+
+              <a
+                class="card-link"
+                href="https://www.imf.org/external/datamapper/NGDPD@WEO/RUS"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GDP →
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -974,8 +1184,32 @@
           cost, or actual Russian government expenditure.
         </p>
 
+        <h3>6. IMF expenditure comparison</h3>
+
+        <p>
+          The comparison section uses IMF World Economic Outlook benchmarks to show the
+          live VSL + VSI estimate relative to annual general government expenditure.
+          The benchmark is calculated as nominal GDP in U.S. dollars multiplied by
+          general government total expenditure as a percentage of GDP.
+        </p>
+
+        <div class="formula">
+          IMF Expenditure Benchmark =
+          GDP, current prices, U.S. dollars ×
+          General Government Total Expenditure, % of GDP
+        </div>
+
+        <p>
+          The comparison ratio is updated every second using the live VSL + VSI estimate.
+        </p>
+
+        <div class="formula">
+          Ratio =
+          Current VSL + VSI Estimate / IMF Expenditure Benchmark
+        </div>
+
         <div class="references">
-          <h3>VSI References</h3>
+          <h3>VSI and Comparison References</h3>
 
           <ol>
             <li>
@@ -1018,6 +1252,29 @@
               The value of a statistical life for transportation regulations:
               A test of the benefits transfer methodology.
             </li>
+
+            <li>
+              International Monetary Fund. (2026).
+              <a
+                href="https://www.imf.org/external/datamapper/GGX_NGDP@WEO/USA/CHN/RUS"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                World Economic Outlook: General government total expenditure,
+                percent of GDP.
+              </a>
+            </li>
+
+            <li>
+              International Monetary Fund. (2026).
+              <a
+                href="https://www.imf.org/external/datamapper/NGDPD@WEO/USA/CHN/RUS"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                World Economic Outlook: GDP, current prices, U.S. dollars.
+              </a>
+            </li>
           </ol>
         </div>
       </section>
@@ -1040,6 +1297,11 @@
 
       VSI baseline:
       $291.92 billion as of June 1, 2026.
+
+      IMF WEO comparison:
+      Annual government expenditure benchmark =
+      GDP, current prices, U.S. dollars ×
+      General government total expenditure, percent of GDP.
     */
 
     const baselineDate = new Date("2026-06-01T00:00:00Z");
@@ -1053,6 +1315,27 @@
     const vsiPerSecond = baselineVSI / historicalSeconds;
     const totalPerSecond = vslPerSecond + vsiPerSecond;
 
+    /*
+      IMF WEO 2026 annual government expenditure benchmarks.
+
+      Calculation:
+      GDP, current prices, U.S. dollars ×
+      General government total expenditure, percent of GDP.
+
+      United States:
+      $31.82T × 37.93% = $12.07T
+
+      China:
+      $20.65T × 33.81% = $6.98T
+
+      Russia:
+      $2.51T × 37.02% = $929B
+    */
+
+    const usaGovernmentExpenditure = 12_069_326_000_000;
+    const chinaGovernmentExpenditure = 6_981_765_000_000;
+    const russiaGovernmentExpenditure = 929_202_000_000;
+
     const vslCounterElement = document.getElementById("vsl-counter");
     const vsiCounterElement = document.getElementById("vsi-counter");
     const totalCounterElement = document.getElementById("total-counter");
@@ -1064,6 +1347,10 @@
     const vslTimestampElement = document.getElementById("vsl-timestamp");
     const vsiTimestampElement = document.getElementById("vsi-timestamp");
 
+    const usaRatioElement = document.getElementById("usa-ratio");
+    const chinaRatioElement = document.getElementById("china-ratio");
+    const russiaRatioElement = document.getElementById("russia-ratio");
+
     const moneyFormatter = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
@@ -1073,6 +1360,11 @@
     const rateFormatter = new Intl.NumberFormat("en-US", {
       style: "currency",
       currency: "USD",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    const ratioFormatter = new Intl.NumberFormat("en-US", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
     });
@@ -1096,9 +1388,17 @@
       const currentVSI = baselineVSI + elapsedSeconds * vsiPerSecond;
       const currentTotal = currentVSL + currentVSI;
 
+      const usaRatio = currentTotal / usaGovernmentExpenditure;
+      const chinaRatio = currentTotal / chinaGovernmentExpenditure;
+      const russiaRatio = currentTotal / russiaGovernmentExpenditure;
+
       vslCounterElement.textContent = moneyFormatter.format(currentVSL);
       vsiCounterElement.textContent = moneyFormatter.format(currentVSI);
       totalCounterElement.textContent = moneyFormatter.format(currentTotal);
+
+      usaRatioElement.textContent = ratioFormatter.format(usaRatio) + "×";
+      chinaRatioElement.textContent = ratioFormatter.format(chinaRatio) + "×";
+      russiaRatioElement.textContent = ratioFormatter.format(russiaRatio) + "×";
 
       vslRateElement.textContent =
         "+" + rateFormatter.format(vslPerSecond) + " per second";
