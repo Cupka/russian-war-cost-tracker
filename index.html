@@ -8,7 +8,7 @@
 
   <meta
     name="description"
-    content="Live VSL-based estimate of the economic value of Russian military fatalities in the Russia-Ukraine War."
+    content="Live VSL and VSI-based estimate of the economic value of Russian military fatalities and nonfatal battlefield casualties in the Russia-Ukraine War."
   />
 
   <style>
@@ -26,7 +26,7 @@
     }
 
     .page {
-      width: min(1160px, 92%);
+      width: min(1280px, 92%);
       margin: 0 auto;
     }
 
@@ -74,14 +74,35 @@
     }
 
     main {
-      padding: 82px 0 65px;
+      padding: 58px 0 65px;
+      text-align: center;
+    }
+
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .panel {
+      padding: 34px;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.045);
+      backdrop-filter: blur(10px);
+      text-align: left;
+    }
+
+    .panel-header {
+      margin-bottom: 24px;
       text-align: center;
     }
 
     .eyebrow {
-      margin-bottom: 18px;
+      margin-bottom: 14px;
       color: #ff6961;
-      font-size: 15px;
+      font-size: 13px;
       font-weight: 900;
       letter-spacing: 0.16em;
       text-transform: uppercase;
@@ -89,73 +110,140 @@
 
     h1 {
       max-width: 960px;
-      margin: 0 auto 22px;
-      font-size: clamp(36px, 5vw, 74px);
-      line-height: 1.06;
+      margin: 0 auto 18px;
+      font-size: clamp(28px, 3.2vw, 48px);
+      line-height: 1.08;
       letter-spacing: -0.045em;
     }
 
     .subtitle {
-      max-width: 820px;
-      margin: 0 auto 38px;
+      max-width: 620px;
+      margin: 0 auto 26px;
       color: #c8c8c8;
-      font-size: clamp(17px, 2vw, 22px);
+      font-size: 16px;
       line-height: 1.55;
     }
 
     .counter {
-      margin: 32px 0 14px;
-      font-size: clamp(42px, 7vw, 94px);
+      margin: 24px 0 12px;
+      font-size: clamp(34px, 4.8vw, 64px);
       font-weight: 900;
       letter-spacing: -0.055em;
       overflow-wrap: anywhere;
+      text-align: center;
     }
 
     .rate {
-      margin-bottom: 12px;
+      margin-bottom: 8px;
       color: #ff6961;
-      font-size: clamp(20px, 3vw, 32px);
+      font-size: clamp(18px, 2.2vw, 26px);
       font-weight: 800;
+      text-align: center;
     }
 
     .timestamp {
       color: #a9a9a9;
-      font-size: 14px;
+      font-size: 13px;
+      text-align: center;
     }
 
     .cards {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-top: 68px;
-      text-align: left;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      margin-top: 34px;
     }
 
     .card {
-      padding: 25px;
+      padding: 20px;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 16px;
-      background: rgba(255, 255, 255, 0.045);
-      backdrop-filter: blur(8px);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .card.wide {
+      grid-column: 1 / -1;
     }
 
     .card-label {
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       color: #a9a9a9;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
 
     .card-value {
-      font-size: 27px;
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1.2;
+    }
+
+    .card-link {
+      display: inline-block;
+      margin-top: 12px;
+      color: #ff9a8f;
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+      background: none;
+      border: 0;
+      padding: 0;
+    }
+
+    .card-link:hover {
+      text-decoration: underline;
+      background: none;
+    }
+
+    .total-section {
+      max-width: 940px;
+      margin: 38px auto 0;
+      padding: 34px;
+      border: 1px solid rgba(255, 105, 97, 0.35);
+      border-radius: 22px;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 105, 97, 0.12),
+        rgba(255, 255, 255, 0.045)
+      );
+      text-align: center;
+    }
+
+    .total-label {
+      margin-bottom: 12px;
+      color: #ff9a8f;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .total-title {
+      margin: 0 auto 18px;
+      font-size: clamp(26px, 3vw, 42px);
+      line-height: 1.15;
+      letter-spacing: -0.035em;
+    }
+
+    .total-counter {
+      font-size: clamp(38px, 6vw, 78px);
+      font-weight: 950;
+      letter-spacing: -0.055em;
+      overflow-wrap: anywhere;
+    }
+
+    .total-rate {
+      margin-top: 10px;
+      color: #ff6961;
+      font-size: clamp(18px, 2.2vw, 28px);
       font-weight: 900;
     }
 
     .note {
-      max-width: 930px;
-      margin: 34px auto 0;
+      max-width: 980px;
+      margin: 28px auto 0;
       color: #929292;
       font-size: 14px;
       line-height: 1.65;
@@ -185,8 +273,8 @@
     }
 
     .modal-content {
-      max-width: 900px;
-      margin: 62px auto;
+      max-width: 980px;
+      margin: 52px auto;
       padding: 34px;
       border-radius: 18px;
       background: #151515;
@@ -219,6 +307,26 @@
       color: #d0d0d0;
       font-size: 16px;
       line-height: 1.75;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin: 22px 0 28px;
+    }
+
+    .tab-button.active {
+      background: rgba(255, 105, 97, 0.22);
+      border-color: rgba(255, 105, 97, 0.6);
+    }
+
+    .method-section {
+      display: none;
+    }
+
+    .method-section.active {
+      display: block;
     }
 
     .formula {
@@ -272,9 +380,13 @@
       flex-shrink: 0;
     }
 
-    @media (max-width: 980px) {
-      .cards {
-        grid-template-columns: repeat(2, 1fr);
+    @media (max-width: 1100px) {
+      .dashboard {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: 28px;
       }
     }
 
@@ -285,11 +397,15 @@
       }
 
       main {
-        padding-top: 58px;
+        padding-top: 38px;
       }
 
       .cards {
         grid-template-columns: 1fr;
+      }
+
+      .card.wide {
+        grid-column: auto;
       }
 
       .modal-content {
@@ -311,64 +427,201 @@
 
       <div class="nav">
         <div class="live">● Live estimate</div>
-        <button onclick="openMethodology()">Methodology</button>
+        <button onclick="openMethodology('vsl')">Methodology</button>
       </div>
     </header>
 
     <main>
-      <div class="eyebrow">Russia Value of Statistical Life</div>
+      <section class="dashboard">
+        <div class="panel">
+          <div class="panel-header">
+            <div class="eyebrow">Russia Value of Statistical Life</div>
 
-      <h1>
-        Estimated VSL-Based Economic Cost of Russian Military Fatalities
-      </h1>
+            <h1>
+              Estimated VSL-Based Economic Cost of Russian Military Fatalities
+            </h1>
 
-      <p class="subtitle">
-        A live estimate based on the 2025 transferred Russian Value of a
-        Statistical Life, using the U.S. Department of Transportation VSL,
-        World Bank GNI per capita, income elasticity ε = 1.0, and a
-        500,000-fatality baseline as of June 1, 2026.
-      </p>
+            <p class="subtitle">
+              A live estimate based on the 2025 transferred Russian Value of a
+              Statistical Life and a 500,000-fatality baseline as of June 1, 2026.
+            </p>
+          </div>
 
-      <div id="cost-counter" class="counter" aria-live="polite">
-        Loading...
-      </div>
+          <div id="vsl-counter" class="counter" aria-live="polite">
+            Loading...
+          </div>
 
-      <div class="rate">
-        +$9,508.87 per second
-      </div>
+          <div id="vsl-rate" class="rate">
+            Loading...
+          </div>
 
-      <div id="timestamp" class="timestamp">
-        Synced to current date and time
-      </div>
+          <div id="vsl-timestamp" class="timestamp">
+            Synced to current date and time
+          </div>
 
-      <section class="cards">
-        <div class="card">
-          <div class="card-label">U.S. DOT VSL 2025</div>
-          <div class="card-value">$14.2M</div>
+          <section class="cards">
+            <div class="card">
+              <div class="card-label">U.S. DOT VSL 2025</div>
+              <div class="card-value">$14.2M</div>
+              <a
+                class="card-link"
+                href="https://www.transportation.gov/office-policy/transportation-policy/revised-departmental-guidance-on-valuation-of-a-statistical-life-in-economic-analysis"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source →
+              </a>
+            </div>
+
+            <div class="card">
+              <div class="card-label">Russia GNI per capita 2025</div>
+              <div class="card-value">$15,960</div>
+              <a
+                class="card-link"
+                href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=RU"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source →
+              </a>
+            </div>
+
+            <div class="card">
+              <div class="card-label">U.S. GNI per capita 2025</div>
+              <div class="card-value">$88,810</div>
+              <a
+                class="card-link"
+                href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=US"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source →
+              </a>
+            </div>
+
+            <div class="card">
+              <div class="card-label">Russian VSL estimate</div>
+              <div class="card-value">$2.55M</div>
+              <button class="card-link" onclick="openMethodology('vsl')">
+                Method →
+              </button>
+            </div>
+
+            <div class="card wide">
+              <div class="card-label">Fatality baseline</div>
+              <div class="card-value">500,000</div>
+              <a
+                class="card-link"
+                href="https://www.gov.uk/government/speeches/gchq-confirms-heavy-russian-losses-as-moscow-avoids-negotiations-and-civilian-casualties-grow-uk-statement-to-the-osce"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source →
+              </a>
+            </div>
+          </section>
         </div>
 
-        <div class="card">
-          <div class="card-label">Russia GNI per capita</div>
-          <div class="card-value">$15,960</div>
+        <div class="panel">
+          <div class="panel-header">
+            <div class="eyebrow">Russia Value of Statistical Injury</div>
+
+            <h1>
+              Estimated VSI-Based Economic Cost of Russian Nonfatal Casualties
+            </h1>
+
+            <p class="subtitle">
+              A live estimate based on 900,000 nonfatal battlefield casualties
+              and a three-tier injury-severity model.
+            </p>
+          </div>
+
+          <div id="vsi-counter" class="counter" aria-live="polite">
+            Loading...
+          </div>
+
+          <div id="vsi-rate" class="rate">
+            Loading...
+          </div>
+
+          <div id="vsi-timestamp" class="timestamp">
+            Synced to current date and time
+          </div>
+
+          <section class="cards">
+            <div class="card">
+              <div class="card-label">Nonfatal casualty baseline</div>
+              <div class="card-value">900,000</div>
+              <a
+                class="card-link"
+                href="https://www.csis.org/analysis/russian-blood-and-treasure-ballooning-costs-putins-war"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source →
+              </a>
+            </div>
+
+            <div class="card">
+              <div class="card-label">Severity distribution</div>
+              <div class="card-value">50% / 35% / 15%</div>
+              <button class="card-link" onclick="openMethodology('vsi')">
+                Method →
+              </button>
+            </div>
+
+            <div class="card">
+              <div class="card-label">DOT injury fractions</div>
+              <div class="card-value">0.003 / 0.105 / 0.593</div>
+              <a
+                class="card-link"
+                href="https://www.transportation.gov/sites/dot.gov/files/2021-03/DOT%20VSL%20Guidance%20-%202021%20Update.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Source →
+              </a>
+            </div>
+
+            <div class="card">
+              <div class="card-label">VSI per injury</div>
+              <div class="card-value">$7.7k / $267.8k / $1.51M</div>
+              <button class="card-link" onclick="openMethodology('vsi')">
+                Method →
+              </button>
+            </div>
+
+            <div class="card wide">
+              <div class="card-label">Baseline VSI estimate</div>
+              <div class="card-value">$291.92B</div>
+              <button class="card-link" onclick="openMethodology('vsi')">
+                Method →
+              </button>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="total-section">
+        <div class="total-label">VSL + VSI</div>
+
+        <h2 class="total-title">
+          Total Human-Capital Cost Estimate
+        </h2>
+
+        <div id="total-counter" class="total-counter" aria-live="polite">
+          Loading...
         </div>
 
-        <div class="card">
-          <div class="card-label">U.S. GNI per capita</div>
-          <div class="card-value">$88,810</div>
-        </div>
-
-        <div class="card">
-          <div class="card-label">Russian VSL estimate</div>
-          <div class="card-value">$2.55M</div>
+        <div id="total-rate" class="total-rate">
+          Loading...
         </div>
       </section>
 
       <p class="note">
-        This counter is an analytical estimate, not a real-time count of
-        confirmed fatalities and not a measure of direct Russian government
-        spending. It extrapolates the VSL-based estimate forward from the
-        June 1, 2026 baseline using the average historical rate implied by
-        the model.
+        These counters are analytical estimates, not real-time counts of confirmed fatalities,
+        confirmed injuries, or direct Russian government spending. VSL estimates the economic
+        value of mortality losses; VSI estimates the economic value of nonfatal battlefield injuries.
       </p>
     </main>
 
@@ -384,230 +637,432 @@
         <button class="close-btn" onclick="closeMethodology()">Close</button>
       </div>
 
-      <p>
-        This counter estimates the economic value of Russian military fatalities
-        using the Value of a Statistical Life (VSL) framework. VSL is commonly
-        used in public policy and cost-benefit analysis to estimate the monetary
-        value of reducing mortality risk. It does not represent the moral value
-        or market price of an individual life.
-      </p>
+      <div class="tabs">
+        <button id="vsl-tab" class="tab-button active" onclick="showMethodologySection('vsl')">
+          VSL Methodology
+        </button>
 
-      <h3>1. VSL transfer approach</h3>
-
-      <p>
-        Because Russia does not have a transparent and reliable domestic wartime
-        VSL estimate, this project uses a benefit-transfer method from the VSL
-        literature, especially the approach associated with
-        <a
-          href="https://www.cambridge.org/core/journals/journal-of-benefit-cost-analysis/article/income-elasticity-of-global-values-of-a-statistical-life-stated-preference-evidence/9147A00C5675C87D680435152F77AA75"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Masterman and Viscusi
-        </a>.
-        The U.S. benchmark VSL is transferred to Russia by adjusting for income
-        differences between the United States and Russia using GNI per capita.
-      </p>
-
-      <div class="formula">
-        VSL<sub>Russia,2025</sub> =
-        VSL<sub>US,2025</sub> ×
-        (GNI<sub>Russia,2025</sub> / GNI<sub>US,2025</sub>)<sup>ε</sup>
+        <button id="vsi-tab" class="tab-button" onclick="showMethodologySection('vsi')">
+          VSI Methodology
+        </button>
       </div>
 
-      <h3>2. Inputs used in this estimate</h3>
+      <section id="vsl-methodology" class="method-section active">
+        <p>
+          This counter estimates the economic value of Russian military fatalities
+          using the Value of a Statistical Life (VSL) framework. VSL is commonly
+          used in public policy and cost-benefit analysis to estimate the monetary
+          value of reducing mortality risk. It does not represent the moral value
+          or market price of an individual life.
+        </p>
 
-      <ul class="method-list">
-        <li>
-          <strong>U.S. DOT VSL benchmark, 2025:</strong>
+        <h3>1. VSL transfer approach</h3>
+
+        <p>
+          Because Russia does not have a transparent and reliable domestic wartime
+          VSL estimate, this project uses a benefit-transfer method from the VSL
+          literature, especially the approach associated with
           <a
-            href="https://www.transportation.gov/office-policy/transportation-policy/revised-departmental-guidance-on-valuation-of-a-statistical-life-in-economic-analysis"
+            href="https://www.cambridge.org/core/journals/journal-of-benefit-cost-analysis/article/income-elasticity-of-global-values-of-a-statistical-life-stated-preference-evidence/9147A00C5675C87D680435152F77AA75"
             target="_blank"
             rel="noopener noreferrer"
           >
-            $14.2 million
+            Masterman and Viscusi
           </a>.
-        </li>
+          The U.S. benchmark VSL is transferred to Russia by adjusting for income
+          differences between the United States and Russia using GNI per capita.
+        </p>
 
-        <li>
-          <strong>Russia GNI per capita, 2025:</strong>
-          <a
-            href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=RU"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            $15,960
-          </a>.
-        </li>
+        <div class="formula">
+          VSL<sub>Russia,2025</sub> =
+          VSL<sub>US,2025</sub> ×
+          (GNI<sub>Russia,2025</sub> / GNI<sub>US,2025</sub>)<sup>ε</sup>
+        </div>
 
-        <li>
-          <strong>U.S. GNI per capita, 2025:</strong>
-          <a
-            href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=US"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            $88,810
-          </a>.
-        </li>
+        <h3>2. Inputs used in this estimate</h3>
 
-        <li>
-          <strong>Russia/U.S. income ratio:</strong>
-          0.180.
-        </li>
-
-        <li>
-          <strong>Income elasticity:</strong>
-          ε = 1.0.
-        </li>
-
-        <li>
-          <strong>Transferred Russian VSL, 2025:</strong>
-          approximately $2.55 million per fatality.
-        </li>
-
-        <li>
-          <strong>Fatality baseline:</strong>
-          <a
-            href="https://www.gov.uk/government/speeches/gchq-confirms-heavy-russian-losses-as-moscow-avoids-negotiations-and-civilian-casualties-grow-uk-statement-to-the-osce"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            500,000 Russian military fatalities as of June 1, 2026
-          </a>,
-          based on recent British intelligence statements, including GCHQ and
-          FCDO reporting.
-        </li>
-
-        <li>
-          <strong>Baseline aggregate VSL estimate:</strong>
-          approximately $1.28 trillion as of June 1, 2026.
-        </li>
-      </ul>
-
-      <h3>3. Aggregate calculation</h3>
-
-      <div class="formula">
-        Aggregate Loss = 500,000 × $2.55 million ≈ $1.28 trillion
-      </div>
-
-      <p>
-        The 2025 transferred Russian VSL is applied to the cumulative fatality
-        baseline because 2025 is the latest available full-year VSL and income
-        input. A more precise year-by-year valuation would require reliable
-        annual fatality totals, which are not available with the same confidence
-        as the cumulative estimate.
-      </p>
-
-      <h3>4. Live counter logic</h3>
-
-      <p>
-        The baseline value is $1.28 trillion as of June 1, 2026. After that date,
-        the live counter increases at the average historical rate implied by the
-        period from February 24, 2022 to June 1, 2026. This creates a continuously
-        updated estimate synchronized to the current date and time.
-      </p>
-
-      <div class="formula">
-        Current Estimate =
-        $1.28 trillion + seconds since June 1, 2026 × $9,508.87
-      </div>
-
-      <p>
-        This is an extrapolated analytical measure. It should not be interpreted
-        as a confirmed real-time casualty count, a direct fiscal cost, or actual
-        Russian government expenditure.
-      </p>
-
-      <div class="references">
-        <h3>References</h3>
-
-        <ol>
+        <ul class="method-list">
           <li>
-            Foreign, Commonwealth &amp; Development Office. (2026).
-            <a
-              href="https://www.gov.uk/government/speeches/gchq-confirms-heavy-russian-losses-as-moscow-avoids-negotiations-and-civilian-casualties-grow-uk-statement-to-the-osce"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              GCHQ confirms heavy Russian losses as Moscow avoids negotiations
-              and civilian casualties grow: UK Statement to the OSCE.
-            </a>
-          </li>
-
-          <li>
-            U.S. Department of Transportation. (2026).
+            <strong>U.S. DOT VSL benchmark, 2025:</strong>
             <a
               href="https://www.transportation.gov/office-policy/transportation-policy/revised-departmental-guidance-on-valuation-of-a-statistical-life-in-economic-analysis"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Departmental Guidance on Valuation of a Statistical Life in
-              Economic Analysis.
-            </a>
+              $14.2 million
+            </a>.
           </li>
 
           <li>
-            World Bank. (n.d.).
+            <strong>Russia GNI per capita, 2025:</strong>
             <a
               href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=RU"
               target="_blank"
               rel="noopener noreferrer"
             >
-              GNI per capita, Atlas method (current US$): Russian Federation.
-            </a>
+              $15,960
+            </a>.
           </li>
 
           <li>
-            World Bank. (n.d.).
+            <strong>U.S. GNI per capita, 2025:</strong>
             <a
               href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=US"
               target="_blank"
               rel="noopener noreferrer"
             >
-              GNI per capita, Atlas method (current US$): United States.
-            </a>
+              $88,810
+            </a>.
           </li>
 
           <li>
-            Masterman, C. J., &amp; Viscusi, W. K. (2018).
+            <strong>Russia/U.S. income ratio:</strong>
+            0.180.
+          </li>
+
+          <li>
+            <strong>Income elasticity:</strong>
+            ε = 1.0.
+          </li>
+
+          <li>
+            <strong>Transferred Russian VSL, 2025:</strong>
+            approximately $2.55 million per fatality.
+          </li>
+
+          <li>
+            <strong>Fatality baseline:</strong>
             <a
-              href="https://www.cambridge.org/core/journals/journal-of-benefit-cost-analysis/article/income-elasticity-of-global-values-of-a-statistical-life-stated-preference-evidence/9147A00C5675C87D680435152F77AA75"
+              href="https://www.gov.uk/government/speeches/gchq-confirms-heavy-russian-losses-as-moscow-avoids-negotiations-and-civilian-casualties-grow-uk-statement-to-the-osce"
               target="_blank"
               rel="noopener noreferrer"
             >
-              The Income Elasticity of Global Values of a Statistical Life:
-              Stated Preference Evidence.
-            </a>
-            <em>Journal of Benefit-Cost Analysis, 9</em>(3), 407–434.
+              500,000 Russian military fatalities as of June 1, 2026
+            </a>,
+            based on recent British intelligence statements, including GCHQ and
+            FCDO reporting.
           </li>
-        </ol>
-      </div>
+
+          <li>
+            <strong>Baseline aggregate VSL estimate:</strong>
+            approximately $1.28 trillion as of June 1, 2026.
+          </li>
+        </ul>
+
+        <h3>3. Aggregate calculation</h3>
+
+        <div class="formula">
+          Aggregate VSL Loss = 500,000 × $2.55 million ≈ $1.28 trillion
+        </div>
+
+        <p>
+          The 2025 transferred Russian VSL is applied to the cumulative fatality
+          baseline because 2025 is the latest available full-year VSL and income
+          input. A more precise year-by-year valuation would require reliable
+          annual fatality totals, which are not available with the same confidence
+          as the cumulative estimate.
+        </p>
+
+        <h3>4. Live counter logic</h3>
+
+        <p>
+          The baseline VSL value is $1.28 trillion as of June 1, 2026. After that
+          date, the live counter increases at the average historical rate implied
+          by the period from February 24, 2022 to June 1, 2026. This creates a
+          continuously updated estimate synchronized to the current date and time.
+        </p>
+
+        <div class="formula">
+          Current VSL Estimate =
+          $1.28 trillion + seconds since June 1, 2026 × $9,508.87
+        </div>
+
+        <p>
+          This is an extrapolated analytical measure. It should not be interpreted
+          as a confirmed real-time casualty count, a direct fiscal cost, or actual
+          Russian government expenditure.
+        </p>
+
+        <div class="references">
+          <h3>VSL References</h3>
+
+          <ol>
+            <li>
+              Foreign, Commonwealth &amp; Development Office. (2026).
+              <a
+                href="https://www.gov.uk/government/speeches/gchq-confirms-heavy-russian-losses-as-moscow-avoids-negotiations-and-civilian-casualties-grow-uk-statement-to-the-osce"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GCHQ confirms heavy Russian losses as Moscow avoids negotiations
+                and civilian casualties grow: UK Statement to the OSCE.
+              </a>
+            </li>
+
+            <li>
+              U.S. Department of Transportation. (2026).
+              <a
+                href="https://www.transportation.gov/office-policy/transportation-policy/revised-departmental-guidance-on-valuation-of-a-statistical-life-in-economic-analysis"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Departmental Guidance on Valuation of a Statistical Life in
+                Economic Analysis.
+              </a>
+            </li>
+
+            <li>
+              World Bank. (n.d.).
+              <a
+                href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=RU"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GNI per capita, Atlas method (current US$): Russian Federation.
+              </a>
+            </li>
+
+            <li>
+              World Bank. (n.d.).
+              <a
+                href="https://data.worldbank.org/indicator/NY.GNP.PCAP.CD?locations=US"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                GNI per capita, Atlas method (current US$): United States.
+              </a>
+            </li>
+
+            <li>
+              Masterman, C. J., &amp; Viscusi, W. K. (2018).
+              <a
+                href="https://www.cambridge.org/core/journals/journal-of-benefit-cost-analysis/article/income-elasticity-of-global-values-of-a-statistical-life-stated-preference-evidence/9147A00C5675C87D680435152F77AA75"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                The Income Elasticity of Global Values of a Statistical Life:
+                Stated Preference Evidence.
+              </a>
+              <em>Journal of Benefit-Cost Analysis, 9</em>(3), 407–434.
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="vsi-methodology" class="method-section">
+        <p>
+          This counter estimates the economic value of Russian nonfatal battlefield
+          casualties using a Value of Statistical Injury (VSI) framework. While VSL
+          values mortality risk, VSI values nonfatal injury risk. This distinction
+          matters because nonfatal injuries can impose long-term costs through medical
+          treatment, disability, lost productivity, reduced quality of life, and family
+          care burdens.
+        </p>
+
+        <h3>1. Nonfatal casualty baseline</h3>
+
+        <p>
+          The model uses 900,000 Russian nonfatal battlefield casualties as the baseline
+          injury estimate. This number is not presented as a verified medical registry
+          of wounded personnel. It is a modeling assumption derived from broader casualty
+          estimates and kept internally consistent with the 500,000 fatality baseline.
+        </p>
+
+        <div class="formula">
+          Nonfatal Casualties = 1.4 million total casualties − 500,000 fatalities
+          = 900,000
+        </div>
+
+        <p>
+          The total casualty benchmark is anchored in the
+          <a
+            href="https://www.csis.org/analysis/russian-blood-and-treasure-ballooning-costs-putins-war"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            CSIS estimate of roughly 1.4 million Russian battlefield casualties
+          </a>.
+        </p>
+
+        <h3>2. Injury-severity categories</h3>
+
+        <p>
+          Russia does not publish reliable public data on battlefield injuries by
+          medical severity, diagnosis, disability status, or return-to-duty outcome.
+          For that reason, the model uses a scenario-based severity distribution:
+        </p>
+
+        <ul class="method-list">
+          <li><strong>Light injuries:</strong> 50% = 450,000 casualties.</li>
+          <li><strong>Moderate injuries:</strong> 35% = 315,000 casualties.</li>
+          <li><strong>Severe injuries:</strong> 15% = 135,000 casualties.</li>
+        </ul>
+
+        <p>
+          To avoid false precision, the model collapses the DOT injury-severity scale
+          into three broad wartime injury tiers: light, moderate, and severe. These
+          are economic modeling categories, not medical diagnoses.
+        </p>
+
+        <h3>3. DOT injury fractions and VSI values</h3>
+
+        <p>
+          The valuation uses selected U.S. Department of Transportation injury-severity
+          fractions of VSL. The selected DOT fractions are:
+        </p>
+
+        <ul class="method-list">
+          <li><strong>Light injury:</strong> 0.003 × Russian VSL.</li>
+          <li><strong>Moderate injury:</strong> 0.105 × Russian VSL.</li>
+          <li><strong>Severe injury:</strong> 0.593 × Russian VSL.</li>
+        </ul>
+
+        <div class="formula">
+          VSI<sub>i</sub> =
+          Russian VSL<sub>2025</sub> × DOT Injury Fraction<sub>i</sub>
+        </div>
+
+        <p>
+          Using the 2025 transferred Russian VSL of approximately $2.55 million,
+          the resulting VSI values are:
+        </p>
+
+        <ul class="method-list">
+          <li><strong>Light injury:</strong> $7,650 per injury.</li>
+          <li><strong>Moderate injury:</strong> $267,750 per injury.</li>
+          <li><strong>Severe injury:</strong> $1,512,150 per injury.</li>
+        </ul>
+
+        <h3>4. Aggregate VSI calculation</h3>
+
+        <div class="formula">
+          Aggregate VSI =
+          Σ Number of Injuries<sub>i</sub> × VSI<sub>i</sub>
+        </div>
+
+        <ul class="method-list">
+          <li><strong>Light:</strong> 450,000 × $7,650 = $3.44 billion.</li>
+          <li><strong>Moderate:</strong> 315,000 × $267,750 = $84.34 billion.</li>
+          <li><strong>Severe:</strong> 135,000 × $1,512,150 = $204.14 billion.</li>
+          <li><strong>Total baseline VSI:</strong> approximately $291.92 billion.</li>
+        </ul>
+
+        <p>
+          Most of the aggregate VSI estimate comes from the severe-injury category.
+          Although severe injuries account for only 15 percent of estimated nonfatal
+          casualties, they account for the majority of the aggregate VSI estimate
+          because the economic harm associated with severe or disability-level injury
+          is much larger than the harm associated with temporary injury.
+        </p>
+
+        <h3>5. Live counter logic</h3>
+
+        <p>
+          The baseline VSI value is $291.92 billion as of June 1, 2026. After that date,
+          the live counter increases at the average historical rate implied by the period
+          from February 24, 2022 to June 1, 2026.
+        </p>
+
+        <div class="formula">
+          Current VSI Estimate =
+          $291.92 billion + seconds since June 1, 2026 × $2,168.62
+        </div>
+
+        <p>
+          This is an extrapolated analytical measure. It should not be interpreted as a
+          confirmed real-time injury count, a Russian medical registry, a direct fiscal
+          cost, or actual Russian government expenditure.
+        </p>
+
+        <div class="references">
+          <h3>VSI References</h3>
+
+          <ol>
+            <li>
+              Center for Strategic and International Studies. (2026).
+              <a
+                href="https://www.csis.org/analysis/russian-blood-and-treasure-ballooning-costs-putins-war"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Russian Blood and Treasure: The Ballooning Costs of Putin’s War.
+              </a>
+            </li>
+
+            <li>
+              U.S. Department of Transportation. (2021).
+              <a
+                href="https://www.transportation.gov/sites/dot.gov/files/2021-03/DOT%20VSL%20Guidance%20-%202021%20Update.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Departmental Guidance on Valuation of a Statistical Life in
+                Economic Analysis: 2021 Update.
+              </a>
+            </li>
+
+            <li>
+              U.S. Department of Transportation. (2026).
+              <a
+                href="https://www.transportation.gov/office-policy/transportation-policy/revised-departmental-guidance-on-valuation-of-a-statistical-life-in-economic-analysis"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Departmental Guidance on Valuation of a Statistical Life in
+                Economic Analysis.
+              </a>
+            </li>
+
+            <li>
+              Viscusi, W. K., &amp; Gentry, E. P. (2015).
+              The value of a statistical life for transportation regulations:
+              A test of the benefits transfer methodology.
+            </li>
+          </ol>
+        </div>
+      </section>
     </div>
   </div>
 
   <script>
     /*
       Russian War Cost Tracker
-      VSL-based live counter
+      VSL + VSI live counters
 
-      Baseline:
-      $1.28 trillion as of June 1, 2026 at 00:00 UTC.
+      Baseline date:
+      June 1, 2026 at 00:00 UTC.
 
       Historical period:
       February 24, 2022 to June 1, 2026 = 1,558 days.
 
-      Growth rate:
-      $1.28 trillion / total seconds in that period
-      = approximately $9,508.87 per second.
+      VSL baseline:
+      $1.28 trillion as of June 1, 2026.
+
+      VSI baseline:
+      $291.92 billion as of June 1, 2026.
     */
 
-    const baselineCost = 1_280_000_000_000;
     const baselineDate = new Date("2026-06-01T00:00:00Z");
-    const costPerSecond = 9508.867018494746;
 
-    const counterElement = document.getElementById("cost-counter");
-    const timestampElement = document.getElementById("timestamp");
+    const baselineVSL = 1_280_000_000_000;
+    const baselineVSI = 291_920_000_000;
+
+    const historicalSeconds = 1558 * 24 * 60 * 60;
+
+    const vslPerSecond = baselineVSL / historicalSeconds;
+    const vsiPerSecond = baselineVSI / historicalSeconds;
+    const totalPerSecond = vslPerSecond + vsiPerSecond;
+
+    const vslCounterElement = document.getElementById("vsl-counter");
+    const vsiCounterElement = document.getElementById("vsi-counter");
+    const totalCounterElement = document.getElementById("total-counter");
+
+    const vslRateElement = document.getElementById("vsl-rate");
+    const vsiRateElement = document.getElementById("vsi-rate");
+    const totalRateElement = document.getElementById("total-rate");
+
+    const vslTimestampElement = document.getElementById("vsl-timestamp");
+    const vsiTimestampElement = document.getElementById("vsi-timestamp");
 
     const moneyFormatter = new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -615,12 +1070,19 @@
       maximumFractionDigits: 0
     });
 
+    const rateFormatter = new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
     const timeFormatter = new Intl.DateTimeFormat("en-US", {
       dateStyle: "medium",
       timeStyle: "medium"
     });
 
-    function updateCounter() {
+    function updateCounters() {
       const now = new Date();
 
       const elapsedMilliseconds = Math.max(
@@ -630,20 +1092,58 @@
 
       const elapsedSeconds = elapsedMilliseconds / 1000;
 
-      const currentEstimate =
-        baselineCost + elapsedSeconds * costPerSecond;
+      const currentVSL = baselineVSL + elapsedSeconds * vslPerSecond;
+      const currentVSI = baselineVSI + elapsedSeconds * vsiPerSecond;
+      const currentTotal = currentVSL + currentVSI;
 
-      counterElement.textContent = moneyFormatter.format(currentEstimate);
-      timestampElement.textContent =
-        "Synced to current time: " + timeFormatter.format(now);
+      vslCounterElement.textContent = moneyFormatter.format(currentVSL);
+      vsiCounterElement.textContent = moneyFormatter.format(currentVSI);
+      totalCounterElement.textContent = moneyFormatter.format(currentTotal);
+
+      vslRateElement.textContent =
+        "+" + rateFormatter.format(vslPerSecond) + " per second";
+
+      vsiRateElement.textContent =
+        "+" + rateFormatter.format(vsiPerSecond) + " per second";
+
+      totalRateElement.textContent =
+        "+" + rateFormatter.format(totalPerSecond) + " per second";
+
+      const syncedText = "Synced to current time: " + timeFormatter.format(now);
+
+      vslTimestampElement.textContent = syncedText;
+      vsiTimestampElement.textContent = syncedText;
     }
 
-    function openMethodology() {
+    function openMethodology(section) {
       document.getElementById("methodology-modal").classList.add("active");
+      showMethodologySection(section || "vsl");
     }
 
     function closeMethodology() {
       document.getElementById("methodology-modal").classList.remove("active");
+    }
+
+    function showMethodologySection(section) {
+      const vslTab = document.getElementById("vsl-tab");
+      const vsiTab = document.getElementById("vsi-tab");
+
+      const vslSection = document.getElementById("vsl-methodology");
+      const vsiSection = document.getElementById("vsi-methodology");
+
+      if (section === "vsi") {
+        vslTab.classList.remove("active");
+        vsiTab.classList.add("active");
+
+        vslSection.classList.remove("active");
+        vsiSection.classList.add("active");
+      } else {
+        vsiTab.classList.remove("active");
+        vslTab.classList.add("active");
+
+        vsiSection.classList.remove("active");
+        vslSection.classList.add("active");
+      }
     }
 
     window.addEventListener("keydown", function(event) {
@@ -652,8 +1152,8 @@
       }
     });
 
-    updateCounter();
-    setInterval(updateCounter, 1000);
+    updateCounters();
+    setInterval(updateCounters, 1000);
   </script>
 </body>
 </html>
